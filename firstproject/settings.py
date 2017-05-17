@@ -25,7 +25,10 @@ SECRET_KEY = '4ipy)$h%64b3^&%!ppd$%+iljr4rro7%_4^a+y4)xih1q5*x9c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'yazu.pythonanywhere.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
