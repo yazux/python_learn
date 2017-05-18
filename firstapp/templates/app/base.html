@@ -3,24 +3,25 @@
 <html>
 
 <head>
-    <title>Python first app</title>
+    <title>PyCash</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 
     <body>
         <div class="page-header">
-            {% if user.is_authenticated %}
-                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-            {% endif %}
-            <h1><a href="/">Django Blog</a></h1>
+            <h1><a href="/">PyCash</a></h1>
         </div>
         <div class="content container">
             <div class="row">
-                <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
+                <div class="col-lg-12 col-md-12 col-xs-12 col-xs-12">
+                {% block content %}{% endblock %}
                 </div>
             </div>
         </div>

@@ -1,0 +1,46 @@
+    {% extends 'app/base.html' %}
+
+    {% block content %}
+
+    <h1>Account list</h1>
+
+        <div class="add-account col-lg-2 col-lg-offset-10 col-md-2 col-md-offset-10 col-sm-4 col-sm-offset-8 col-xs-12">
+            <a href="{% url 'account_new' %}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span>
+                <span>Add account</span>
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table accounts">
+                <thead>
+                    <tr>
+                        <td><span>Alias</span></td>
+                        <td><span>Title</span></td>
+                        <td><span>Action</span></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for account in accounts %}
+                        <tr>
+                            <td>
+                                <span>{{ account.alias }}</span>
+                            </td>
+                            <td>
+                                <span>{{ account.title }}</span>
+                            </td>
+                            <td>
+                                <a class="btn btn-default" href="{% url 'account_edit' pk=account.pk %}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a class="btn btn-danger" href="{% url 'account_remove' pk=account.pk %}">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% endblock content %}

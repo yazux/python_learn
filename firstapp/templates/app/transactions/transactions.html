@@ -1,0 +1,81 @@
+    {% extends 'app/base.html' %}
+
+    {% block content %}
+
+
+    <h1>Transactions</h1>
+
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#transaction-list">Transactions list</a></li>
+        <li><a href="#accounts-list">Account status list</a></li>
+        <li><a href="#add-new-transaction">Add new transaction</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="transaction-list" class="tab-pane active table-responsive">
+            <table class="table accounts">
+                <thead>
+                    <tr>
+                        <td><span>Date</span></td>
+                        <td><span>Type</span></td>
+                        <td><span>Sum</span></td>
+                        <td><span>Subject</span></td>
+                        <td><span>Account</span></td>
+                        <td><span>Description</span></td>
+                        <td><span>Action</span></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td><span>{{ transaction.transaction_date }}</span></td>
+                            <td><span>{{transaction.type}}</span></td>
+                            <td><span>{{transaction.sum}} rub</span></td>
+                            <td><span>{{transaction.subject}}</span></td>
+                            <td><span>{{transaction.account}}</span></td>
+                            <td><span>{{transaction.title}}</span></td>
+                            <td>
+                                <a class="btn btn-default" href="{% url 'transaction_edit' pk=transaction.pk %}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a class="btn btn-danger" href="{% url 'transaction_remove' pk=transaction.pk %}">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div id="add-new-transaction" class="tab-pane">
+            <form method="POST" class="post-form">{% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Save</button>
+            </form>
+        </div>
+
+        <div id="accounts-list" class="tab-pane table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Account name</td>
+                        <td>Total sum</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key,val in accounts.items %}
+                        <tr>
+                            <td><span>{{ val.name  }}</span></td>
+                            <td><span>{{ val.sum }}</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    {% endblock content %}
