@@ -1,6 +1,11 @@
+# coding: utf8
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from datetime import datetime
+from datetime import datetime, timedelta
+import urllib
+import locale
+
+
 from .models import Post
 from .models import BankAccount
 from .models import Transaction
@@ -11,6 +16,7 @@ from .forms import TransactionForm
 
 from django.shortcuts import redirect
 
+locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 
 def index(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -156,12 +162,18 @@ def transactions(request):
 
                 i = i + 1
 
+                nowDate = datetime.today()
+                selectYears = [
+                    requestDate.year,
+                    requestDate.year - 1
+                ]
 
+            #form
 
             return render(
                 request,
                 "app/transactions/transactions.html",
-                {'transactions': transactions, 'form': form, 'accounts': accountsSum}
+                {'transactions': transactions, 'form': form, 'accounts': accountsSum, 'selectYears': selectYears}
             )
     else:
         return redirect('index')

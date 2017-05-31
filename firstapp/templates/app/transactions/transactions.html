@@ -5,6 +5,39 @@
 
     <h1>Transactions</h1>
 
+    <div class="">
+        <form id="select-date" class="form-inline" role="form">
+            <div class="form-group">
+                <!-- <input class="form-control" type="text" id="year" placeholder="2017" value="2017"> -->
+
+                <select class="form-control" name="year" id="year">
+                    {% for yearItem in selectYears %}
+                        <option value={{yearItem}}>{{yearItem}}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="month" id="month">
+                    <option value="1">Январь</option>
+                    <option value="2">Февраль</option>
+                    <option value="3">Март</option>
+                    <option value="4">Апрель</option>
+                    <option value="5">Май</option>
+                    <option value="6">Июнь</option>
+                    <option value="7">Июль</option>
+                    <option value="8">Август</option>
+                    <option value="9">Сентябрь</option>
+                    <option value="10">Октярь</option>
+                    <option value="11">Ноябрь</option>
+                    <option value="12">Декабрь</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <a id="date-link" class="btn btn-default" href="/transactions/?date=5.2017" link="/transactions/?date=">Показать</a>
+            </div>
+        </form>
+    </div>
 
     <ul class="nav nav-tabs">
         <li class="active"><a href="#transaction-list">Transactions list</a></li>
@@ -50,10 +83,38 @@
             </table>
         </div>
 
-        <div id="add-new-transaction" class="tab-pane">
-            <form method="POST" class="post-form">{% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="save btn btn-default">Save</button>
+        <div id="add-new-transaction" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 tab-pane">
+            <form method="POST"  class="form-horizontal post-form" role="form">{% csrf_token %}
+                <fieldset class="row">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <div class="form-group error">
+                                <label class="control-label">{{ field.label }}</label>
+                                <div class="controls">{{ field }}
+                                    <span class="help-inline">
+                                        {% for error in  field.errors %}{{ error }}{% endfor %}
+                                    </span>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if forloop.counter|divisibleby:"2" %}{% else %}
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            {% endif %}
+                                <label class="control-label">{{ field.label }}</label>
+                                <div class="controls">{{ field }}
+                                    {% if field.help_text %}
+                                        <p class="help-inline"><small>{{ field.help_text }}</small></p>
+                                    {% endif %}
+                                </div>
+                            {% if forloop.counter|divisibleby:"2" %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </fieldset>
+                <div class="form-group">
+                    <button type="submit" class="save btn btn-default">Save</button>
+                </div>
             </form>
         </div>
 

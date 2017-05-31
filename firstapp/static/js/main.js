@@ -11,4 +11,16 @@ $(document).ready(function(){
       $('.tab-content').find( $(this).attr('href') ).show();
       $('.tab-content').find( $(this).attr('href') ).addClass('active');
     });
+
+    $('#select-date #year').on('change',function(){ changeTransactionDate(); });
+    $('#select-date #month').on('change',function(){ changeTransactionDate(); });
+
+    function changeTransactionDate(){
+        var yearInput = $('#select-date #year'),
+            mothSelect = $('#select-date #month'),
+            link = $('#select-date #date-link');
+
+        link.attr('href', link.attr('link') + mothSelect.val() + '.' + yearInput.val() )
+    }
+
 });
